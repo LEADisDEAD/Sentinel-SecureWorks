@@ -69,6 +69,7 @@ Nice to Have features implemented:
 
 - Structured Export
 - Confidence Score
+- Coverage Summary
 
 ## Tech Stack
 

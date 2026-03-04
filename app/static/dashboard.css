@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     background:
         linear-gradient(to right,
@@ -15,7 +16,7 @@ body {
         #0b0b12;
 
     min-height: 100vh;
-
+    
     color: #e5e5e5;
     font-family: 'Segoe UI', sans-serif;
 }
@@ -320,7 +321,7 @@ body {
 }
 
 .auth-title {
-    font-size: 58px;
+    font-size: 46px;
     font-weight: 700;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -330,7 +331,7 @@ body {
 }
 
 .auth-subtitle {
-    font-size: 20px;
+    font-size: 16px;
     color: #dddddd;
     margin-bottom: 60px;
     margin-top: -30px;
@@ -343,12 +344,12 @@ body {
 .feature h3 {
     color: #bb7cf7;
     margin-bottom: 0px;
-    font-size: 28px;
+    font-size: 20px;
 }
 
 .feature p {
     color: #bbb;
-    font-size: 18px;
+    font-size: 14px;
     margin-top: 0px;
 }
 
@@ -362,7 +363,7 @@ body {
 .auth-card {
     width: 100%;
     max-width: 520px;
-    min-height: 500px;              /* fixed taller card */
+    min-height: 450px;              /* fixed taller card */
     padding: 55px 50px;
     background: #16161d;
     border: 1px solid #7c3aed;
@@ -382,7 +383,7 @@ body {
 }
 
 .form-fields {
-    margin-top: 50px;
+    margin-top: 35px;
     
 }
 
@@ -390,17 +391,17 @@ body {
 .auth-toggle {
     display: flex;
     gap: 16px;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
 }
 
 .auth-toggle button {
     flex: 1;
-    height: 48px;
+    height: 42px;
     border-radius: 14px;
     border: 1px solid #7c3aed;
     background: transparent;
     color: #ccc;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -414,13 +415,13 @@ body {
 .auth-card input {
     width: 95%;
     padding: 14px;
-    margin-bottom: 30px;
-    height: 48px;
+    margin-bottom: 20px;
+    height: 42px;
     background: #0f0f14;
     border: 1px solid #7c3aed;
     border-radius: 10px;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     
     
 }
@@ -434,7 +435,7 @@ body {
     border-radius: 10px;
     color: white;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.2s ease;
 
@@ -453,7 +454,7 @@ body {
 }
 
 .auth-illustration i {
-    font-size: 150px;
+    font-size: 110px;
     color: #a855f7;
     opacity: 0.9;
 }
@@ -498,7 +499,7 @@ body {
     transition: 0.2s ease;
     height: 60px;
     /* width: 150px; */
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .tab-btn.active {
@@ -585,7 +586,7 @@ body {
     filter: drop-shadow(0 0 12px rgba(123, 63, 255, 0.6));
 }
 .brand-title {
-    font-size: 68px;
+    font-size: 52px;
     font-weight: 700;
     background: linear-gradient(135deg, #7f3bff, #c218ff);
     -webkit-background-clip: text;

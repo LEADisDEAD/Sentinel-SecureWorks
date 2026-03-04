@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <div class="card">
+        <h2>{{ questionnaire.title }}</h2>
+
+        <div style="margin-top:20px;">
+            <strong>Total Questions:</strong> {{ summary.total_questions }} <br>
+            <strong>Answered w/ Citation:</strong> {{ summary.answered_with_citation }} <br>
+            <strong>Answered w/o Citation:</strong> {{ summary.answered_without_citation }} <br>
+            <strong>Not Found:</strong> {{ summary.not_found }} <br>
+            <strong>Completion:</strong> {{ summary.completion_percentage }}%
+        </div>
+    </div>
+
+    {% for item in questions_data %}
+        <div class="card">
+
+            <h4>Question:</h4>
+            <p>{{ item.question.text }}</p>
+
+            {% if item.answer %}
+                <h4>Answer:</h4>
+
+                <div id="answer-display-{{ item.answer.id }}">
+                    <p>{{ item.answer.answer_text }}</p>
+                    <button onclick="toggleEdit({{ item.answer.id }})">
+                        Edit
+                    </button>
+                </div>
+
+                <div id="answer-edit-{{ item.answer.id }}" style="display:none;">
+                    <form method="post" action="/answers/{{ item.answer.id }}/edit-ui">
+                        <textarea name="answer_text" required>{{ item.answer.answer_text }}</textarea>
+
+                        <label style="margin-top:10px;">Citation (optional)</label>
+                        <textarea name="citation">{{ item.answer.citation }}</textarea>
+
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="toggleEdit({{ item.answer.id }})">
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+
+                {% if item.answer.citation %}
+                    <h5>Citation:</h5>
+                    <p style="color:#a855f7;">{{ item.answer.citation }}</p>
+                {% endif %}
+
+                <div style="margin-top:10px;">
+                    <strong>Confidence Score:</strong>
+                    <span class="confidence-badge">
+                        {{ item.confidence }}
+                    </span>
+                </div>
+
+            {% else %}
+                <p><em>No answer generated yet.</em></p>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    <div style="margin-top:20px;">
+        <a href="/dashboard">← Back to Dashboard</a>
+    </div>
+
+</div>
+
+<script>
+function toggleEdit(id) {
+    const displayDiv = document.getElementById("answer-display-" + id);
+    const editDiv = document.getElementById("answer-edit-" + id);
+
+    if (editDiv.style.display === "none") {
+        editDiv.style.display = "block";
+        displayDiv.style.display = "none";
+    } else {
+        editDiv.style.display = "none";
+        displayDiv.style.display = "block";
+    }
+}
+</script>
+
+{% endblock %}

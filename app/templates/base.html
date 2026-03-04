@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentinel SecureWorks</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+</head>
+<body class="{% if hide_navbar %}auth-body{% endif %}">
+    {% if not hide_navbar %}
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo">Sentinel SecureWorks</span>
+        </div>
+        <div class="nav-right">
+            {% if request.session.get("user_id") %}
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout" class="logout-link">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="{% if hide_navbar %}auth-wrapper{% else %}page-wrapper{% endif %}">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

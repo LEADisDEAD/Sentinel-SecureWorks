@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if error %}
+<div class="error-msg" style="margin-bottom:20px;">
+    {{ error }}
+</div>
+{% endif %}
+
+<div class="dashboard-tabs">
+
+    <!-- TAB BUTTONS -->
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('tab-questions')">
+            Questionnaires
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-upload')">
+            Upload
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-references')">
+            References
+        </button>
+    </div>
+
+    <!-- TAB CONTENT -->
+
+    <!-- QUESTIONNAIRES TAB -->
+
+    
+
+    <div id="tab-questions" class="tab-content active">
+        <div class="card hero-card">
+            <h2>Welcome, {{ user.email }}</h2>
+            <p class="subtext">Manage your questionnaires and AI-generated responses.</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <h4>{{ questionnaires|length }}</h4>
+                <p>Total Questionnaires</p>
+            </div>
+
+            <div class="stat-card">
+                <h4>{{ avg_completion }}%</h4>
+                <p>Average Completion</p>
+            </div>
+
+            <div class="stat-card">
+                <h4>{{ references|length }}</h4>
+                <p>Reference Documents</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Your Questionnaires</h3>
+
+            
+
+
+            {% if questionnaires %}
+                {% for q in questionnaires %}
+                    <div class="q-item">
+                        <div class="q-info">
+                            <div class="q-title">{{ q.title }}</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {{ q.completion }}%;"></div>
+                            </div>
+                            <div class="completion-text">{{ q.completion }}% Complete</div>
+                        </div>
+
+                        <div class="q-actions">
+                            <a href="/questionnaire/{{ q.id }}/generate-ui"
+                                onclick="this.innerText='Generating...'; this.style.pointerEvents='none';">
+                                Generate
+                            </a>
+                            <a href="/questionnaire/{{ q.id }}">Review</a>
+                            <a href="/questionnaire/{{ q.id }}/export-ui">Export</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color:#aaa;">
+                    No questionnaires yet. Switch to the Upload tab to get started.
+                </p>
+            {% endif %}
+
+            <form method="post" action="/clear-all"
+                onsubmit="return confirm('This will delete everything. Continue?');">
+                <button type="submit" class="danger-btn">
+                    Clear Workspace
+                </button>
+            </form>
+        </div>
+
+   
+    </div>
+
+    
+
+
+    <!-- UPLOAD TAB -->
+    <div id="tab-upload" class="tab-content">
+        <div class="card">
+            <h3>Upload Questionnaire</h3>
+            <form method="post" action="/questionnaire/upload-ui" enctype="multipart/form-data">
+                <input type="text" name="title" placeholder="Title" required>
+
+                <label>Paste Questions (Optional)</label>
+                <textarea name="content" placeholder="Paste questions separated by new lines"></textarea>
+
+                <div class="divider">OR</div>
+
+                <label>Upload File (.pdf or .txt)</label>
+                <input type="file" name="file" accept=".pdf,.txt">
+
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- REFERENCES TAB -->
+    <div id="tab-references" class="tab-content">
+        <div class="card">
+            <h3>Upload Reference Document</h3>
+
+            <form method="post" action="/reference/upload-ui" enctype="multipart/form-data">
+                <input type="text" name="title" placeholder="Title (optional)">
+                <label>Paste Content (Optional)</label>
+                <textarea name="content" placeholder="Paste reference content here..."></textarea>
+
+                <div class="divider">OR</div>
+
+                <label>Upload File (.pdf or .txt)</label>
+                <input type="file" name="file" accept=".pdf,.txt">
+
+                <button type="submit">Upload</button>
+            </form>
+
+            <hr style="margin:25px 0; border-color:#2a2a33;">
+
+            {% if references %}
+                {% for r in references %}
+                    <div class="q-item">
+                        <div>{{ r.title }}</div>
+                        <div>
+                            <a href="/reference/{{ r.id }}/delete">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reference documents uploaded yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<script>
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+{% endblock %}

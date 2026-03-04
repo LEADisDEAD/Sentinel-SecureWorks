@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-container">
+
+    <!-- LEFT SIDE -->
+    <div class="auth-left">
+
+        <div class="brand-wrapper">
+            <i class="bi bi-shield-lock-fill brand-icon"></i>
+            <h1 class="brand-title">Sentinel SecureWorks</h1>
+        </div>
+        <p class="auth-subtitle">
+            Automate security questionnaire workflows with intelligent parsing and grounded AI responses.<br>
+Built for fast-moving teams that demand accuracy, traceability, and efficiency.
+        </p>
+
+        <div class="feature">
+            <h3> ● Structured Parsing</h3>
+            <p>Automatically break complex questionnaires into structured questions.</p>
+        </div>
+
+        <div class="feature">
+            <h3> ● AI Generated Responses</h3>
+            <p>Generate grounded answers using approved documentation.</p>
+        </div>
+
+        <div class="feature">
+            <h3> ● Citation Backed Outputs</h3>
+            <p>Every answer is traceable with clear reference citations.</p>
+        </div>
+
+        <div class="feature">
+            <h3> ● Export Ready Reports</h3>
+            <p>Download structured documents preserving original format.</p>
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="auth-right">
+
+        <div class="auth-card">
+
+            {% if error %}
+                <div class="error-msg">{{ error }}</div>
+            {% endif %}
+
+            <div class="auth-toggle">
+                <button onclick="showLogin()" id="loginBtn">Login</button>
+                <button onclick="showSignup()" id="signupBtn">Sign Up</button>
+            </div>
+
+            <div class="auth-divider"></div>
+            
+            <div class="auth-illustration">
+                <i class="bi bi-person-circle"></i>
+            </div>
+
+            <form id="loginForm" method="post" action="/login-ui">
+
+                <div class="form-fields">
+                    <input type="email" name="email" placeholder="Email address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="primary-btn">Login</button>
+
+            </form>
+
+            <form id="signupForm" method="post" action="/signup-ui" style="display:none;">
+
+                <div class="form-fields">
+                    <input type="email" name="email" placeholder="Email address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>   
+
+                <button type="submit" class="primary-btn">Create Account</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function showLogin() {
+    document.getElementById("loginForm").style.display = "flex";
+    document.getElementById("signupForm").style.display = "none";
+
+    document.getElementById("loginBtn").classList.add("active");
+    document.getElementById("signupBtn").classList.remove("active");
+}
+
+function showSignup() {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("signupForm").style.display = "flex";
+
+    document.getElementById("signupBtn").classList.add("active");
+    document.getElementById("loginBtn").classList.remove("active");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    showLogin();  // default state
+});
+</script>
+
+{% endblock %}
+

@@ -6,6 +6,9 @@ load_dotenv()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+if not GROQ_API_KEY:
+    raise Exception("GROQ_API_KEY not set in environment variables")
+
 def generate_answer(question: str, reference_text: str):
     url = "https://api.groq.com/openai/v1/chat/completions"
 
